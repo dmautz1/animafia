@@ -1,0 +1,8 @@
+html, body{
+	background-color: #1a002d;
+	color:  #fff;
+}
+
+.capitalize-first::first-letter {
+	text-transform: uppercase;
+}
