@@ -87,7 +87,6 @@ function populate_metas() {
     let tableRef = document.getElementById('mafia_metas').getElementsByTagName('tbody')[0]
     let newRow = tableRef.insertRow(tableRef.rows.length)
     let mafiaCell = newRow.insertCell(0)
-    mafiaCell.setAttribute('width', '400px')
     mafiaCell.setAttribute('class', 'py-3')
     let metasCell = newRow.insertCell(1)
     metasCell.setAttribute('class', 'text-left py-5')
