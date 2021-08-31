@@ -6,7 +6,7 @@ var metas = []
 var monkeys = []
 var meta_count= []
 var monkey_count = 0
-var meta_fetches = []
+var fetches = []
 
 function get_mafia() {
   /*fetch('https://api.opensea.io/api/v1/assets?token_ids=167&token_ids=1086&token_ids=1219&token_ids=1409&token_ids=1434&token_ids=1717&token_ids=2108&token_ids=2713&token_ids=3115&token_ids=3196&token_ids=3290&token_ids=3525&token_ids=3493&token_ids=3658&token_ids=3440&token_ids=4216&token_ids=4319&token_ids=5104&token_ids=5353&token_ids=6124&token_ids=6312&token_ids=6411&token_ids=6658&token_ids=7492&token_ids=7847&token_ids=7860&token_ids=8612&token_ids=9728&token_ids=10030&order_direction=desc&offset=0&limit=50&collection=animetas', {method: 'GET'})
