@@ -85,7 +85,7 @@ function count_monkeys() {
   monkeys.forEach(owner => {
     owner.forEach(monkey => {
       monkey_count++
-    } 
+    })
   })
 }
 
