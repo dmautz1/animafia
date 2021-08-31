@@ -148,6 +148,7 @@ function populate_metas() {
       }
     })
     let countPar = document.createElement('p')
+    countPar.setAttribute('class','mb-0')
     let countText = document.createTextNode(`Payroll: ${payroll_count} metas`)
     countPar.appendChild(countText)
     mafiaCell.appendChild(countPar)
@@ -170,7 +171,7 @@ function populate_monkeys() {
         monkey_count++
       })
       let countPar = document.createElement('p')
-      let countText = document.createTextNode(`Monkeys: ${monkey_count}`)
+      let countText = document.createTextNode(`Animonkeys: ${monkey_count}`)
       countPar.appendChild(countText)
       row.cells[0].appendChild(countPar)
     }
