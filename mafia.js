@@ -56,7 +56,7 @@ function parse_metas(metas_json) {
   metas.push(metas_json['assets'])
 }
 
-function parse_metas(monkeys_json) {
+function parse_monkeys(monkeys_json) {
   monkeys.push(monkeys_json['assets'])
 }
 
