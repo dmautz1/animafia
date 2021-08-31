@@ -156,22 +156,24 @@ function populate_metas() {
 
 function populate_monkeys() {
   monkeys.forEach(owner => {
-    let row = document.getElementById(owner[0]['owner']['address'])
-    var monkey_count = 0
-    owner.forEach(monkey => {
-      let link = document.createElement('a')
-      link.setAttribute('href', monkey['permalink'])
-      let image = document.createElement('img')
-      image.setAttribute('width', '64px')
-      image.setAttribute('src', monkey["image_thumbnail_url"])
-      link.appendChild(image)
-      row.cells[1].appendChild(link)
-      monkey_count++
-    })
-    let countPar = document.createElement('p')
-    let countText = document.createTextNode(`Monkeys: ${monkey_count}`)
-    countPar.appendChild(countText)
-    row.cells[0].appendChild(countPar)
+    if(owner){
+      let row = document.getElementById(owner[0]['owner']['address'])
+      var monkey_count = 0
+      owner.forEach(monkey => {
+        let link = document.createElement('a')
+        link.setAttribute('href', monkey['permalink'])
+        let image = document.createElement('img')
+        image.setAttribute('width', '64px')
+        image.setAttribute('src', monkey["image_thumbnail_url"])
+        link.appendChild(image)
+        row.cells[1].appendChild(link)
+        monkey_count++
+      })
+      let countPar = document.createElement('p')
+      let countText = document.createTextNode(`Monkeys: ${monkey_count}`)
+      countPar.appendChild(countText)
+      row.cells[0].appendChild(countPar)
+    }
   })
 }
 
