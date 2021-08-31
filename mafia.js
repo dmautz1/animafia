@@ -156,7 +156,7 @@ function populate_metas() {
 
 function populate_monkeys() {
   monkeys.forEach(owner => {
-    if(owner){
+    if(owner.length > 0){
       let row = document.getElementById(owner[0]['owner']['address'])
       var monkey_count = 0
       owner.forEach(monkey => {
