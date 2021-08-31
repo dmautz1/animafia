@@ -3,7 +3,9 @@ const mafia_ids = [167,1086,1219,1409,1434,1717,2108,2713,3115,3196,3290,3440,34
 var owners = new Set()
 var mafia = []
 var metas = []
+var monkeys = []
 var meta_count= []
+var monkey_count = 0
 var meta_fetches = []
 
 function get_mafia() {
@@ -22,10 +24,23 @@ function get_metas(owner_address) {
     .then(response => response.json())
     .then(response => console.log(response))
     .catch(err => console.error(err));*/
-  meta_fetches.push(
+  fetches.push(
     fetch(`./data/owners/${owner_address}.json`)
       .then(response => response.json())
       .then(response => parse_metas(response))
+      .catch(err => console.error(err))
+  )
+}
+
+function get_monkeys(owner_address) {
+  /*fetch(`https://api.opensea.io/api/v1/assets?owner=${owner_address}&order_direction=desc&offset=0&limit=50&collection=animetas`, {method: 'GET'})
+    .then(response => response.json())
+    .then(response => console.log(response))
+    .catch(err => console.error(err));*/
+  fetches.push(
+    fetch(`./data/owners/${owner_address}_monkeys.json`)
+      .then(response => response.json())
+      .then(response => parse_monkeys(response))
       .catch(err => console.error(err))
   )
 }
@@ -39,6 +54,10 @@ function parse_mafia(response) {
 
 function parse_metas(metas_json) {
   metas.push(metas_json['assets'])
+}
+
+function parse_metas(monkeys_json) {
+  monkeys.push(monkeys_json['assets'])
 }
 
 function count_metas() {
@@ -62,6 +81,14 @@ function count_metas() {
   })
 }
 
+function count_monkeys() {
+  monkeys.forEach(owner => {
+    owner.forEach(monkey => {
+      monkey_count++
+    } 
+  })
+}
+
 function sort_metas() {
   metas.sort(function (a, b) {
     return b.length - a.length;
@@ -69,8 +96,8 @@ function sort_metas() {
 }
 
 function populate_count() {
+  let tableRef = document.getElementById('meta_count').getElementsByTagName('tbody')[0]
   meta_count.forEach(meta_type => {
-    let tableRef = document.getElementById('meta_count').getElementsByTagName('tbody')[0]
     let newRow = tableRef.insertRow(tableRef.rows.length)
     let nameCell = newRow.insertCell(0)
     nameCell.setAttribute('class', 'capitalize-first')
@@ -80,12 +107,20 @@ function populate_count() {
     nameCell.appendChild(nameText)
     countCell.appendChild(countText)
   })
+  let newRow = tableRef.insertRow(tableRef.rows.length)
+  let nameCell = newRow.insertCell(0)
+  let countCell = newRow.insertCell(1)
+  let nameText = document.createTextNode('Animonkeys')
+  let countText = document.createTextNode(monkey_count)
+  nameCell.appendChild(nameText)
+  countCell.appendChild(countText)
 }
 
 function populate_metas() {
   metas.forEach(owner => {
     let tableRef = document.getElementById('mafia_metas').getElementsByTagName('tbody')[0]
     let newRow = tableRef.insertRow(tableRef.rows.length)
+    newRow.setAttribute('id', owner[0]['owner']['address'])
     let mafiaCell = newRow.insertCell(0)
     mafiaCell.setAttribute('class', 'py-3')
     let metasCell = newRow.insertCell(1)
@@ -119,15 +154,39 @@ function populate_metas() {
   })
 }
 
+function populate_monkeys() {
+  monkeys.forEach(owner => {
+    let row = document.getElementById(owner[0]['owner']['address'])
+    var monkey_count = 0
+    owner.forEach(monkey => {
+      let link = document.createElement('a')
+      link.setAttribute('href', monkey['permalink'])
+      let image = document.createElement('img')
+      image.setAttribute('width', '64px')
+      image.setAttribute('src', monkey["image_thumbnail_url"])
+      link.appendChild(image)
+      row.cells[1].appendChild(link)
+      monkey_count++
+    })
+    let countPar = document.createElement('p')
+    let countText = document.createTextNode(`Monkeys: ${monkey_count}`)
+    countPar.appendChild(countText)
+    row.cells[0].appendChild(countPar)
+  })
+}
+
 var getMafia = get_mafia()
 getMafia.then(function() {
   owners.forEach(owner => {
     get_metas(owner)
+    get_monkeys(owner)
   })
-  Promise.all(meta_fetches).then(function() {
+  Promise.all(fetches).then(function() {
     count_metas()
+    count_monkeys()
     sort_metas()
     populate_count()
     populate_metas()
+    populate_monkeys()
   })
 })
