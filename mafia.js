@@ -126,7 +126,8 @@ function populate_metas() {
     let metasCell = newRow.insertCell(1)
     metasCell.setAttribute('class', 'text-left py-5')
     let nameHead = document.createElement('h5')
-    let nameText = document.createTextNode(owner[0]['owner']['user']['username'])
+    let username = owner[0]['owner']['user']['username'] || 'null'
+    let nameText = document.createTextNode(username)
     nameHead.appendChild(nameText)
     mafiaCell.appendChild(nameHead)
     var payroll_count = 0
