@@ -126,7 +126,10 @@ function populate_metas() {
     let metasCell = newRow.insertCell(1)
     metasCell.setAttribute('class', 'text-left py-5')
     let nameHead = document.createElement('h5')
-    let username = owner[0]['owner']['user']['username'] || 'null'
+    let username = 'None'
+    if(owner[0]['owner']['user']) {
+      username =  owner[0]['owner']['user']['username']
+    }
     let nameText = document.createTextNode(username)
     nameHead.appendChild(nameText)
     mafiaCell.appendChild(nameHead)
